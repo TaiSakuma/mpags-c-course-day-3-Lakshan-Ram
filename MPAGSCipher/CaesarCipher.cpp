@@ -4,9 +4,10 @@
 #include "CaesarCipher.hpp"
 
 
-CaesarCipher::CaesarCipher(const size_t& caesarKey, const bool& encrypt, const std::string& input_letters): input_letters_{input_letters}, key_{caesarKey}, encrypt_{encrypt}
-{} 
-CaesarCipher::CaesarCipher(const std::string& caesarKey, const bool& encrypt, const std::string& input_letters): input_letters_{input_letters}, encrypt_{encrypt}
+CaesarCipher::CaesarCipher(const size_t& caesarKey, const CipherMode& ciphermode, const std::string& input_letters): input_letters_{input_letters}, key_{caesarKey}, ciphermode_{ciphermode}
+{} // constructor for key in size_t  
+CaesarCipher::CaesarCipher(const std::string& caesarKey, const CipherMode& ciphermode, const std::string& input_letters): input_letters_{input_letters}, ciphermode_{ciphermode}
+//constructor for key in string format
 {
     // Before doing the conversion we should check that the string contains a
     // valid positive integer.
@@ -55,10 +56,10 @@ std::string CaesarCipher::applyCipher()
 
       if ( origChar == alphabet_[i] ) {
 
-	// Apply the appropriate shift (depending on whether we're encrypting
+	// Apply the appropriate shift (depending on whether we're ciphermodeing
 	// or decrypting) and determine the new character
 	// Can then break out of the loop over the alphabet
-	if ( encrypt_ ) {
+	if ( ciphermode_ == CipherMode::Encrypt ) {
 	  processedChar = alphabet_[ (i + truncatedKey) % alphabetSize ];
 	} else {
 	  processedChar = alphabet_[ (i + alphabetSize - truncatedKey) % alphabetSize ];

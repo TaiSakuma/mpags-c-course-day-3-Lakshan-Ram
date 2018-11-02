@@ -73,10 +73,10 @@ bool processCommandLine(const std::vector<std::string> args, ProcessedArgs& InAr
       }
     }
     else if ( args[i] == "--encrypt" ) {
-            InArgs.encrypt = true;
+      InArgs.ciphermode = CipherMode::Encrypt;
     }
     else if ( args[i] == "--decrypt" ) {
-            InArgs.encrypt = false;
+      InArgs.ciphermode = CipherMode::Decrypt;
     }
     else {
       // Have encoutered an unknown flag, output an error message, set the flag

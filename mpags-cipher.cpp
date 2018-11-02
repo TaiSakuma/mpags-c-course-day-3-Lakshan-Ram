@@ -9,6 +9,9 @@
 #include "ProcessCommandLine.hpp"
 #include "RunCaesarCipher.hpp"
 #include "CaesarCipher.hpp"  
+#include "CipherMode.hpp"
+
+
 // Main function of the mpags-cipher program
 int main(int argc, char* argv[])
 {
@@ -16,7 +19,7 @@ int main(int argc, char* argv[])
   const std::vector<std::string> cmdLineArgs {argv, argv+argc};
 
   // Options that might be set by the command-line arguments
-  ProcessedArgs InputArgs{false, false, "","","",true};  
+  ProcessedArgs InputArgs{false, false, "","","", CipherMode::Encrypt};  
 
   // Process command line arguments
   bool cmdLineStatus { processCommandLine(cmdLineArgs, InputArgs)};
@@ -93,7 +96,7 @@ int main(int argc, char* argv[])
   std::string outputText{""};
   if ( ! InputArgs.cipher_key.empty() ) {
     
-    CaesarCipher caesarCipher {InputArgs.cipher_key, InputArgs.encrypt, inputText};
+    CaesarCipher caesarCipher {InputArgs.cipher_key, InputArgs.ciphermode, inputText};
     //caesar_key = caesarCipher.key_;
     outputText = caesarCipher.applyCipher();
 }
