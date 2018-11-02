@@ -4,9 +4,9 @@
 #include "CaesarCipher.hpp"
 
 
-CaesarCipher::CaesarCipher(const size_t& caesarKey): caesar_Key{caesarKey}
+CaesarCipher::CaesarCipher(const size_t& caesarKey, const bool& encrypt, const std::string& input_letters): input_letters_{input_letters}, key_{caesarKey}, encrypt_{encrypt}
 {} 
-CaesarCipher::CaesarCipher(const std::string& caesarKey)
+CaesarCipher::CaesarCipher(const std::string& caesarKey, const bool& encrypt, const std::string& input_letters): input_letters_{input_letters}, encrypt_{encrypt}
 {
     // Before doing the conversion we should check that the string contains a
     // valid positive integer.
@@ -18,13 +18,58 @@ CaesarCipher::CaesarCipher(const std::string& caesarKey)
     // string does not represent a valid unsigned long, we could check for and
     // handled that instead but we only cover exceptions very briefly on the
     // final day of this course - they are a very complex area of C++ that
-    // could take an entire course on their own!)
-    for ( const auto& elem : caesarKey ) {
+    // could take an entire course on their own!)  
+  bool error{false};
+  for ( const auto& elem : caesarKey ) {
       if ( ! std::isdigit(elem) ) {
 	std::cerr << "[error] cipher key must be an unsigned long integer for Caesar cipher,\n"
-	          << "        the supplied key (" << caesarKey << ") could not be successfully converted" << std::endl;
-	
+	          << "        the supplied key (" << caesarKey << ") could not be successfully converted\nDefault Key 0 is used" << std::endl;
+	error = true;
+	break;
+      }
+  }
+  if (!error)
+    {key_ = std::stoul(caesarKey);}
+  else
+    {key_ = 0;}
+}
+
+
+std::string CaesarCipher::applyCipher()
+{
+
+
+  // Create the alphabet container
+  const size_t alphabetSize = alphabet_.size();
+
+  // Make sure that the key is in the range 0 - 25
+  const size_t truncatedKey { key_ % alphabetSize };
+
+  // Loop over the input text
+  char processedChar {'x'};
+  for ( const auto& origChar : input_letters_ ) {
+
+    // For each character in the input text, find the corresponding position in
+    // the alphabet by using an indexed loop over the alphabet container
+    for ( size_t i{0}; i < alphabetSize; ++i ) {
+
+      if ( origChar == alphabet_[i] ) {
+
+	// Apply the appropriate shift (depending on whether we're encrypting
+	// or decrypting) and determine the new character
+	// Can then break out of the loop over the alphabet
+	if ( encrypt_ ) {
+	  processedChar = alphabet_[ (i + truncatedKey) % alphabetSize ];
+	} else {
+	  processedChar = alphabet_[ (i + alphabetSize - truncatedKey) % alphabetSize ];
+	}
+	break;
       }
     }
-    caesar_Key = std::stoul(caesarKey);
+
+    // Add the new character to the output text
+    output_letters_ += processedChar;
+  }
+
+  return output_letters_;
 }
