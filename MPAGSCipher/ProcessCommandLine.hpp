@@ -14,7 +14,7 @@ struct ProcessedArgs {
   CipherMode ciphermode;
 };
 
-  bool processCommandLine(const std::vector<std::string> args, ProcessedArgs& InArgs);
+  bool processCommandLine(const std::vector<std::string>& args, ProcessedArgs& InArgs);
 
 
 
