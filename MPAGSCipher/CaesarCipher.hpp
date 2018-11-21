@@ -10,11 +10,10 @@
 class CaesarCipher {
 
 public:
-  explicit CaesarCipher(const size_t& caesarKey, const std::string& input_letters);
-  explicit CaesarCipher(const std::string& caesarKey, const std::string& input_letters);
-  std::string applyCipher(const CipherMode& ciphermode);
+  explicit CaesarCipher(const size_t& caesarKey);
+  explicit CaesarCipher(const std::string& caesarKey);
+  std::string applyCipher(const std::string& input_letters, const CipherMode& ciphermode);
   
-  std::string input_letters_;
   std::string output_letters_;
 
 private:

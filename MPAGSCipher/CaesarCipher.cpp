@@ -4,11 +4,12 @@
 #include "CaesarCipher.hpp"
 
 
-CaesarCipher::CaesarCipher(const size_t& caesarKey, const std::string& input_letters): input_letters_{input_letters}, key_{caesarKey}
-{} // constructor for key in size_t
+CaesarCipher::CaesarCipher(const size_t& caesarKey)
+  : key_{caesarKey}
+{
+}
 
-CaesarCipher::CaesarCipher(const std::string& caesarKey, const std::string& input_letters): input_letters_{input_letters}
-//constructor for key in string format
+CaesarCipher::CaesarCipher(const std::string& caesarKey)
 {
     // Before doing the conversion we should check that the string contains a
     // valid positive integer.
@@ -37,7 +38,7 @@ CaesarCipher::CaesarCipher(const std::string& caesarKey, const std::string& inpu
 }
 
 
-std::string CaesarCipher::applyCipher(const CipherMode& ciphermode)
+std::string CaesarCipher::applyCipher(const std::string& input_letters, const CipherMode& ciphermode)
 {
 
 
@@ -49,7 +50,7 @@ std::string CaesarCipher::applyCipher(const CipherMode& ciphermode)
 
   // Loop over the input text
   char processedChar {'x'};
-  for ( const auto& origChar : input_letters_ ) {
+  for ( const auto& origChar : input_letters ) {
 
     // For each character in the input text, find the corresponding position in
     // the alphabet by using an indexed loop over the alphabet container
