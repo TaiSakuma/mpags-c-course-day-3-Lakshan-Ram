@@ -10,7 +10,10 @@ CaesarCipher::CaesarCipher(const size_t key)
 }
 
 CaesarCipher::CaesarCipher(const std::string& key)
+  : key_{0}
 {
+  if ( key.empty() ) return;
+
     // Before doing the conversion we should check that the string contains a
     // valid positive integer.
     // Here we do that by looping through each character and checking that it

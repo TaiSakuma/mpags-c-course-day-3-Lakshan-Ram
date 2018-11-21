@@ -94,12 +94,9 @@ int main(int argc, char* argv[])
   // We default to having a key of 0, i.e. no encryption, if no key was provided on the command line
   //size_t caesar_key {0};
   std::string outputText{""};
-  if ( ! InputArgs.cipher_key.empty() ) {
-    
-    CaesarCipher caesarCipher {InputArgs.cipher_key};
-    //caesar_key = caesarCipher.key_;
-    outputText = caesarCipher.applyCipher(inputText, InputArgs.ciphermode);
-}
+  CaesarCipher caesarCipher {InputArgs.cipher_key};
+  //caesar_key = caesarCipher.key_;
+  outputText = caesarCipher.applyCipher(inputText, InputArgs.ciphermode);
 
   // Run the Caesar cipher (using the specified key and encrypt/decrypt flag) on the input text
   //  std::string outputText { runCaesarCipher( inputText, caesar_key, InputArgs.encrypt ) };
