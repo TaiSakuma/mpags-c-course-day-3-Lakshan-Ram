@@ -96,9 +96,9 @@ int main(int argc, char* argv[])
   std::string outputText{""};
   if ( ! InputArgs.cipher_key.empty() ) {
     
-    CaesarCipher caesarCipher {InputArgs.cipher_key, InputArgs.ciphermode, inputText};
+    CaesarCipher caesarCipher {InputArgs.cipher_key, inputText};
     //caesar_key = caesarCipher.key_;
-    outputText = caesarCipher.applyCipher();
+    outputText = caesarCipher.applyCipher(InputArgs.ciphermode);
 }
 
   // Run the Caesar cipher (using the specified key and encrypt/decrypt flag) on the input text
